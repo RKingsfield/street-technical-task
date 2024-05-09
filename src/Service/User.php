@@ -3,14 +3,14 @@ namespace App\Service;
 
 use App\Service\Normaliser\ConjunctionNormaliser;
 use App\Service\Normaliser\TitleNormaliser;
-use App\Service\Normaliser\NormaliserInterface;
+use App\Service\Normaliser\AbstractNormaliser;
 use App\Model\User as UserModel;
 use Slim\Psr7\UploadedFile;
 
 class User
 {
 
-  /** @var NormaliserInterface[] */
+  /** @var AbstractNormaliser[] */
   public array $normalisers;
 
   public function __construct()
