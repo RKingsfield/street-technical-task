@@ -1,0 +1,17 @@
+{% extends 'layout.twig' %}
+
+{% block contents %}
+    <h2>
+        Homeowner Uploader
+    </h2>
+
+    <p>
+        Upload a CSV of homeowners and convert them into internal models
+    </p>
+
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" id="homeownersFile" name="homeowners">
+        <input type="submit">
+    </form>
+
+{% endblock %}

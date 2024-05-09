@@ -1,0 +1,16 @@
+{% extends 'layout.twig' %}
+
+{% block contents %}
+    <h2>
+        Homeowners
+    </h2>
+
+    <p>
+        The following homeowners have been uploaded
+    </p>
+
+    {% for user in users %}
+        {{ user|json_encode }} <br />
+    {% endfor %}
+
+{% endblock %}
