@@ -1,7 +1,7 @@
 <?php
 namespace App\Service\Normaliser;
 
-class TitleNormaliser extends Normaliser
+class TitleNormaliser extends AbstractNormaliser
 {
   protected $mappings = [
     'mister' => 'mr',
@@ -13,7 +13,7 @@ class TitleNormaliser extends Normaliser
 
   public function normalise(string $string): string
   {
-    $normalisedString = strtolower($string);
+    $normalisedString = $this->lcwords($string);
     foreach ($this->mappings as $key => $value) {
       $normalisedString = str_replace("$key ", "$value ", $normalisedString);
     }

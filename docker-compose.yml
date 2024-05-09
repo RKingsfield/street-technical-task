@@ -7,7 +7,7 @@ volumes:
 services:
     slim:
         container_name: street-technical-test
-        image: php:8.2-alpine
+        image: ghcr.io/devgine/composer-php:v2-php8.2-alpine
         working_dir: /var/www
         command: php -S 0.0.0.0:8080 -t public
         environment:

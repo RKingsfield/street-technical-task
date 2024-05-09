@@ -4,7 +4,7 @@ An application for processing a CSV file and converting the data into normalised
 
 ## Running the app
 
-This project is dockerised, so simple run Docker and use the command `docker-compose up` to launch the application. The default URL for accessing this locally is `localhost:8080`. You should then find a very simple web form for uploading a CSV file for processing.
+This project is dockerised, so simply run Docker and use the command `docker-compose up` to launch the container, followed by `docker exec street-technical-test composer install` to install the relevant packages. The default URL for accessing this locally is `localhost:8080`. You should then find a very simple web form for uploading a CSV file for processing.
 
 ## Tests
 
@@ -19,5 +19,6 @@ The application is now in a working state. To improve and build upon this, I wou
 - Add persistence in the form of a database layer. This data is both simple and relational so I'd stick with something simple like MySQL.
   - Would perhaps need to create some method of uniquely identifying a person. This could be challenging with the data we have as it's possible to have more than one Mr John Smith.
 - Create a much prettier front-end
-- Add a MAKE file and some convenience commands to it, such as a pre-commit check to automatically check PSR-12 compliance and run tests
+- Add a MAKE file and some convenience commands to it, such as a pre-commit check to automatically check PSR-12 compliance and run tests, or a command to launch the container and install packages at once
 - Add a more complete error handling mechanism rather than relying on the framework
+- Create a "File Processing" service to abstract away the functionality of processing the CSV file, to potentially be able to handle different formats in the future

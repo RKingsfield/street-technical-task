@@ -6,22 +6,22 @@ namespace Test\Service\Normaliser;
 
 use PHPUnit\Framework\TestCase;
 use App\Service\Normaliser\ConjunctionNormaliser;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class ConjunctionNormaliserTest extends TestCase
 {
-  public function getTestCases(): array
+  #[DataProvider('provideTestCases')]
+  public function testNormailsesConjunctions(string $input, string $expectedOutput): void
   {
-    return [
-      'Mr Tom Staff and Mr John Doe' => 'Mr Tom Staff & Mr John Doe',
-      'Mr Tom Staff And Mr John Doe' => 'Mr Tom Staff & Mr John Doe'
-    ];
+    $conjunctionNormaliser = new ConjunctionNormaliser();
+    $this->assertEquals($expectedOutput, $conjunctionNormaliser->normalise($input));
   }
 
-  public function testConjunctionNormaliser(): void
+  public static function provideTestCases(): array
   {
-    $titleNormaliser = new ConjunctionNormaliser();
-    foreach($this->getTestCases() as $input => $expectedOutput) {
-      $this->assertEquals($expectedOutput, $titleNormaliser->normalise($input));
-    }
+    return [
+      ['Mr Tom Staff and Mr John Doe', 'Mr Tom Staff & Mr John Doe'],
+      ['Mr Tom Staff And Mr John Doe', 'Mr Tom Staff & Mr John Doe']
+    ];
   }
 }

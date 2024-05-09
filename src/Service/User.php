@@ -3,13 +3,14 @@ namespace App\Service;
 
 use App\Service\Normaliser\ConjunctionNormaliser;
 use App\Service\Normaliser\TitleNormaliser;
-use App\Service\Normaliser\Normaliser;
+use App\Service\Normaliser\NormaliserInterface;
 use App\Model\User as UserModel;
+use Slim\Psr7\UploadedFile;
 
 class User
 {
 
-  /** @var Normaliser[] */
+  /** @var NormaliserInterface[] */
   public array $normalisers;
 
   public function __construct()
@@ -23,15 +24,30 @@ class User
   /**
    * @return User[]
    */
+  public function processCSVFile(UploadedFile $uploadedFile): array
+  {
+    $users = [];
+    $file = $uploadedFile->getStream()->detach();
+
+    fgetcsv($file, 10000, ","); // skip header
+    while (($userString = fgetcsv($file, 10000, ",")) !== false) {
+        $users = array_merge($users, $this->convertStringToUsers($userString[0]));
+    }
+
+    return $users;
+  }
+
+  /**
+   * @return User[]
+   */
   public function convertStringToUsers(string $userString): array
   {
     foreach ($this->normalisers as $normaliser) {
       $userString = $normaliser->normalise($userString);
     }
 
-    $tokens = preg_split('/\s+/', $userString);
-    // Fetch last name first, in case it is shared between both people
-    $sharedLastName = array_pop($tokens);
+    $words = preg_split('/\s+/', $userString);
+    $sharedLastName = array_pop($words);
 
     return array_map(function (string $string) use ($sharedLastName) {
       // @todo this could be tidier
@@ -53,7 +69,7 @@ class User
         $initial,
         empty($firstName) ? null : $firstName,
       );
-    }, explode('&', implode(' ', $tokens))); // Split this up into different people
+    }, explode('&', implode(' ', $words)));
 
   }
 }

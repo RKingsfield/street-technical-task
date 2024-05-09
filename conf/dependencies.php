@@ -8,6 +8,7 @@ use Monolog\Logger;
 use Monolog\Processor\UidProcessor;
 use Psr\Container\ContainerInterface;
 use Slim\Views\Twig;
+use App\Service\User as UserService;
 
 return function (ContainerBuilder $containerBuilder) {
     $containerBuilder->addDefinitions([
@@ -31,6 +32,9 @@ return function (ContainerBuilder $containerBuilder) {
         'view' => function (ContainerInterface $container) {
             $settings = $container->get('settings');
             return Twig::create($settings['view']['template_path'], $settings['view']['twig']);
+        },
+        'UserService' => function (ContainerInterface $container) {
+            return new UserService();
         },
     ]);
 };

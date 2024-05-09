@@ -7,11 +7,13 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 
 abstract class BaseController
 {
+    protected $container;
     protected $view;
     protected $logger;
 
     public function __construct(ContainerInterface $container)
     {
+        $this->container = $container;
         $this->view = $container->get('view');
         $this->logger = $container->get('logger');
     }

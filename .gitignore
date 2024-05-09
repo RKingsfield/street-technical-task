@@ -1,7 +1,7 @@
 \.ac-php-conf\.json
 vendor/
-var/*
+var/cache/
 composer.lock
 *.DS_Store
 .phpunit*
-.vscode/*
+.vscode*
