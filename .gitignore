@@ -3,3 +3,5 @@ vendor/
 var/*
 composer.lock
 *.DS_Store
+.phpunit*
+.vscode/*
