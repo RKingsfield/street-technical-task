@@ -46,17 +46,16 @@ class User
       $userString = $normaliser->normalise($userString);
     }
 
-    $words = preg_split('/\s+/', $userString);
-    $sharedLastName = array_pop($words);
+    $individualWords = preg_split('/\s+/', $userString);
+    $sharedLastName = array_pop($individualWords);
 
     return array_map(function (string $string) use ($sharedLastName) {
-      // @todo this could be tidier
-      $tokens = preg_split('/\s+/', trim($string));
+      $words = preg_split('/\s+/', trim($string));
 
       $initial = null;
-      $title = array_shift($tokens);
-      $firstName = rtrim((array_shift($tokens) ?? ''), '.');
-      $lastName = array_shift($tokens);
+      $title = array_shift($words);
+      $firstName = rtrim((array_shift($words) ?? ''), '.');
+      $lastName = array_shift($words);
 
       if (strlen($firstName) === 1) {
         $initial = $firstName;
@@ -69,7 +68,7 @@ class User
         $initial,
         empty($firstName) ? null : $firstName,
       );
-    }, explode('&', implode(' ', $words)));
+    }, explode('&', implode(' ', $individualWords)));
 
   }
 }
