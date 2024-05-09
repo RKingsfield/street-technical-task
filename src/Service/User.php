@@ -22,7 +22,7 @@ class User
   }
 
   /**
-   * @return User[]
+   * @return UserModel[]
    */
   public function processCSVFile(UploadedFile $uploadedFile): array
   {
@@ -38,7 +38,7 @@ class User
   }
 
   /**
-   * @return User[]
+   * @return UserModel[]
    */
   public function convertStringToUsers(string $userString): array
   {
